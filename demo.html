@@ -7,8 +7,9 @@
     <title>Document</title>
   </head>
   <body>
-    <div ref="app" id="app" @click="handleClick">
-      {{ message }}
+    <div ref="app" id="app">
+      <button @click="handleBtn1">btn1</button>
+      <p id="content">{{ message }}</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -18,25 +19,21 @@
           message: "Hello Vue!"
         },
         methods: {
-          handleClick() {
-            var $app = document.getElementById("app");
-            new Promise(resolve => {
-              resolve();
-            }).then(() => {
-              this.$refs.app.innerText;
+          handleBtn1() {
+            var $content = document.getElementById("content");
+            setTimeout(() => {
+              this.message = "改变message";
             });
-            this.message = "hellow1";
-            this.message = "hellow2";
-            this.message = "hellow3";
-            this.message = "hellow4";
-            console.log($app.innerHTML);
-            // console.log(this.$refs.app.innerText)
-            // console.log(this.message);
-            debugger;
-            // this.$nextTick(() => {
-            //   console.log($app.innerHTML);
+            this.message = "hellow";
+            // console.log($content.innerHTML, "直接打印");
+            // Promise.resolve().then(console.log($content.innerHTML));
+            // setTimeout(() => {
+            //   console.log($content.innerHTML);
             // });
-            this.message = "hellow!!!";
+            this.$nextTick(() => {
+              // console.log($app.innerHTML, "nextTick回调打印");
+              this.message = "hellow!!!";
+            });
           }
         }
       });
