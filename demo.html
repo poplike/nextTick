@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div ref="app" id="app" @click="handleClick">
+      {{ message }}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          message: "Hello Vue!"
+        },
+        methods: {
+          handleClick() {
+            var $app = document.getElementById("app");
+            new Promise(resolve => {
+              resolve();
+            }).then(() => {
+              this.$refs.app.innerText;
+            });
+            this.message = "hellow1";
+            this.message = "hellow2";
+            this.message = "hellow3";
+            this.message = "hellow4";
+            console.log($app.innerHTML);
+            // console.log(this.$refs.app.innerText)
+            // console.log(this.message);
+            debugger;
+            // this.$nextTick(() => {
+            //   console.log($app.innerHTML);
+            // });
+            this.message = "hellow!!!";
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

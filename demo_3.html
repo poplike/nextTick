@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      var $app = document.getElementById("app");
+      $app.innerHTML = "1";
+      debugger;
+      let one = setTimeout(() => {
+        new Promise(resolve => {
+          $app.innerHTML = "4";
+          Promise.resolve().then(() => ($app.innerHTML = "7"));
+          let three = setTimeout(() => {
+            resolve(3);
+          });
+          Promise.resolve().then(() => ($app.innerHTML = "5"));
+          Promise.resolve().then(() => ($app.innerHTML = "6"));
+        }).then(res => ($app.innerHTML = res));
+        Promise.resolve().then(() => ($app.innerHTML = "8"));
+        $app.innerHTML = "2";
+        let four = setTimeout(() => {
+          $app.innerHTML = "?";
+        });
+      });
+      let two = setTimeout(() => {
+        $app.innerHTML = "??";
+      });
+
+      /**
+ *    什么是宏任务？
+      我们可以将每次执行栈执行的代码当做是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行），
+      每一个宏任务会从头到尾执行完毕，不会执行其他。
+      我们前文提到过JS引擎线程和GUI渲染线程是互斥的关系，浏览器为了能够使宏任务和DOM任务有序的进行，会在一个宏任务执行结果后，在下一个宏任务执行前，GUI渲染线程开始工作，对页面进行渲染。
+      宏任务: 主代码块，setTimeout，setInterval等（可以看到，事件队列中的每一个事件都是一个macrotask）
+
+      // 宏任务-->渲染-->宏任务-->渲染-->渲染．．．
+
+      
+      什么是微任务 ？
+      我们已经知道宏任务结束后，会执行渲染，然后执行下一个宏任务，
+      而微任务可以理解成在当前宏任务执行后立即执行的任务。
+      也就是说，当宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完。
+      Promise，process.nextTick等，属于微任务。
+*/
+    </script>
+  </body>
+</html>
